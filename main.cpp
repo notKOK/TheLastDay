@@ -14,18 +14,21 @@ int main()
 	if(!window.isOpen()) return 0;
 	int counter1 = 0, counter2 = 0, counter3 = 0;
     string path = "./img/";
+    const string knives = "Bring me the knives";
+    const string hayq = "Feed the horses";
+    const string docq = "Deliver the documents";
 	Font font;
 	font.loadFromFile("./19925.ttf");
 	Text text1("", font, 20);
-	text1.setString("Bring me the knives:");
+	text1.setString(knives);
 	text1.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	text1.setPosition(100, 570);
 	Text text2("", font, 20);
-	text2.setString("Feed the hourses:");
+	text2.setString(hayq);
 	text2.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	text2.setPosition(480, 570);
 	Text text3("", font, 20);
-	text3.setString("Deliver the documents:");
+	text3.setString(docq);
 	text3.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	text3.setPosition(850, 570);
 
@@ -103,7 +106,7 @@ int main()
             if(counterY == 20) { counterY = 0; ++hero.map_y;}
         }
 
-		if(hero.x < 320 && hero.x > 20 && hero.y == 360)
+        if(hero.x < 320 && hero.x > 20 && hero.y == 360)
 		{
 			a1 = true;
 		}
@@ -111,19 +114,20 @@ int main()
 		if(h1)
 		{
 			++counter1;
-			text1.setString("Bring me he knifes:" + to_string(counter1));
+			text1.setString(knives + to_string(counter1));
 			a1 = 0;
             knife.sprite.setPosition(-1000,-1000);
 		}
-		if(hero.x < 1880 && hero.x > 1600 && hero.y > 240 && hero.y < 380)
+		bool h22 = ((hero.x > 444 && hero.x < 712) && hero.y == 620);
+		bool h2 = a2 && (hero.x < 1880 && hero.x > 1600 && hero.y > 240 && hero.y < 380);
+		if(h22)
 		{
 			a2 = true;
 		}
-		bool h2 =(a2 && (hero.x > 444 && hero.x < 712) && hero.y == 620);
 		if(h2)
 		{
 			++counter2;
-			text2.setString("Feed the hourses:" + to_string(counter2));
+			text2.setString(hayq + to_string(counter2));
 			a2 = 0;
             hay.sprite.setPosition(-1000,-1000);
 		}
@@ -135,7 +139,7 @@ int main()
 		if(h3)
 		{
 			++counter3;
-			text3.setString("Deliver the documents:" + to_string(counter3));
+			text3.setString(docq + to_string(counter3));
 			a3 = 0;
             document.sprite.setPosition(-1000,-1000);
 		}
