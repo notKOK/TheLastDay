@@ -1,5 +1,6 @@
-#ifndef KURSUCK_MENU_H
-#define KURSUCK_MENU_H
+#ifndef KURSUCK_MENU
+#define KURSUCK_MENU
+
 using namespace sf;
 
 void menu(RenderWindow & window);
