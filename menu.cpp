@@ -2,13 +2,13 @@
 #include "menu.h"
 using namespace sf;
 
-String path = "S:/ClionProjects/kursuck/";
+String path = "./img/";
 
 void menu(RenderWindow & window) {
     Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
-    menuTexture1.loadFromFile(path + "111.png");
-    menuTexture2.loadFromFile(path + "222.png");
-    menuTexture3.loadFromFile(path + "333.png");
+    menuTexture1.loadFromFile(path + "menu1.png");
+    menuTexture2.loadFromFile(path + "menu2.png");
+    menuTexture3.loadFromFile(path + "menu3.png");
     aboutTexture.loadFromFile(path + "about.png");
     menuBackground.loadFromFile(path + "back.jpg");
     Sprite menu1(menuTexture1), menu2(menuTexture2), menu3(menuTexture3), about(aboutTexture), menuBg(menuBackground);

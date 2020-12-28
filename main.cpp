@@ -1,23 +1,21 @@
 #include <SFML/Graphics.hpp>
 #include "units.h"
-#include "heroMoves.h"
+#include "menu.h"
 #include <fstream>
-#include <vector>
 #include <iostream>
-
 
 using namespace std;
 using namespace sf;
 
-
-
 int main()
 {
 	RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!", Style::Fullscreen);
+	menu(window);
+	if(!window.isOpen()) return 0;
 	int counter1 = 0, counter2 = 0, counter3 = 0;
-    string path = "S:/ClionProjects/kursuck/";
+    string path = "./img/";
 	Font font;
-	font.loadFromFile(path + "19925.ttf");
+	font.loadFromFile("./19925.ttf");
 	Text text1("", font, 20);
 	text1.setString("Bring me he knifes:");
 	text1.setStyle(sf::Text::Bold | sf::Text::Underlined);
@@ -40,17 +38,17 @@ int main()
 	texture bighouse(path + "bighouse.png", 0, 0, 342, 274, 1100, 10, 399, 320);
 	texture smoke(path +"smoke.png", 0, 0, 80, 104, 169, 40, 50, 84);
 
+
     const int WIDTH_MAP = 54;
     const int HEIGHT_MAP = 96;
     String TileMap[HEIGHT_MAP];
-    char mar;
-	ifstream file("map.txt");
-	for(size_t i = 0; i < 54; ++i){
-	    for(size_t j = 0; j < 96; ++j){
-	        file >> mar;
-	        TileMap[i][j] = mar;
-	    }
-	}
+    string temp;
+	ifstream file("./map.txt");
+
+    for(int i = 0;getline(file,temp); ++i){
+        TileMap[i] = temp;
+    }
+
 
 	int counterX = 0;
 	int counterY = 0;
@@ -70,41 +68,41 @@ int main()
 				window.close();
 		}
 
-		if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) && ((char)TileMap[hero.map_y][hero.map_x - 1] != '0')) 
-		{ 
-			hero.sprite.move(-hero.speed, 0); 
-			hero.sprite.setTextureRect(IntRect(8 + 156 * (int(time) % 2), 115, 44, 92)); 
-			hero.x -= hero.speed; 
-			counterX -= hero.speed;
-			if(counterX == -20) { counterX = 0; --hero.map_x;}
-		} 
-		else if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) && ((char)TileMap[hero.map_y][hero.map_x + 1] != '0')) 
-		{ 
-			hero.sprite.move(hero.speed, 0); 
-			hero.sprite.setTextureRect(IntRect(8 + 156 * (int(time) % 2), 223, 44, 92)); 
-			hero.x += hero.speed; 
-			counterX += hero.speed;
-			if(counterX == 20){ counterX = 0; ++hero.map_x;}
-		} 
-		else if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) && ((char)TileMap[hero.map_y - 1][hero.map_x] != '0')) 
-		{ 
-			hero.sprite.move(0, -hero.speed); 
-			hero.sprite.setTextureRect(IntRect(5 + 156 * (int(time) % 2), 331, 50, 92)); 
-			hero.y -= hero.speed; 
-			counterY -= hero.speed;
-			if(counterY == -20){counterY = 0; --hero.map_y;}
-		} 
-		else if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) && ((char)TileMap[hero.map_y + 1][hero.map_x] != '0')) 
-		{ 
-			hero.sprite.move(0, hero.speed); 
-			hero.sprite.setTextureRect(IntRect(5 + 156 * (int(time) % 2), 7, 50, 92)); 
-			hero.y += hero.speed; 
-			counterY += hero.speed;
-			if(counterY == 20) { counterY = 0; ++hero.map_y;}
-		}  
+        if ((Keyboard::isKeyPressed(Keyboard::Left) || (Keyboard::isKeyPressed(Keyboard::A))) && ((char)TileMap[hero.map_y][hero.map_x - 1] != '0'))
+        {
+            hero.sprite.move(-hero.speed, 0);
+            hero.sprite.setTextureRect(IntRect(8 + 156 * (int(time) % 2), 115, 44, 92));
+            hero.x -= hero.speed;
+            counterX -= hero.speed;
+            if(counterX == -20) { counterX = 0; --hero.map_x;}
+        }
+        else if ((Keyboard::isKeyPressed(Keyboard::Right) || (Keyboard::isKeyPressed(Keyboard::D))) && ((char)TileMap[hero.map_y][hero.map_x + 1] != '0'))
+        {
+            hero.sprite.move(hero.speed, 0);
+            hero.sprite.setTextureRect(IntRect(8 + 156 * (int(time) % 2), 223, 44, 92));
+            hero.x += hero.speed;
+            counterX += hero.speed;
+            if(counterX == 20){ counterX = 0; ++hero.map_x;}
+        }
+        else if ((Keyboard::isKeyPressed(Keyboard::Up) || (Keyboard::isKeyPressed(Keyboard::W))) && ((char)TileMap[hero.map_y - 1][hero.map_x] != '0'))
+        {
+            hero.sprite.move(0, -hero.speed);
+            hero.sprite.setTextureRect(IntRect(5 + 156 * (int(time) % 2), 331, 50, 92));
+            hero.y -= hero.speed;
+            counterY -= hero.speed;
+            if(counterY == -20){counterY = 0; --hero.map_y;}
+        }
+        else if ((Keyboard::isKeyPressed(Keyboard::Down) || (Keyboard::isKeyPressed(Keyboard::S))) && ((char)TileMap[hero.map_y + 1][hero.map_x] != '0'))
+        {
+            hero.sprite.move(0, hero.speed);
+            hero.sprite.setTextureRect(IntRect(5 + 156 * (int(time) % 2), 7, 50, 92));
+            hero.y += hero.speed;
+            counterY += hero.speed;
+            if(counterY == 20) { counterY = 0; ++hero.map_y;}
+        }
+
 		if(hero.x < 320 && hero.x > 20 && hero.y == 360)
 		{
-		cout << "fkajfouahjofa" << endl;
 			a1 = true;
 		}
 		bool h1 =(a1 && (hero.x > 68 && hero.x < 340) && hero.y == 620);
@@ -176,7 +174,7 @@ int main()
 			fence.sprite.setPosition(116 * i, 986);
 			window.draw(fence.sprite); 
 		}
-		cout << hero.x << ' ' << hero.y << endl;
+
 		window.draw(text1);
 		window.draw(text2);
 		window.draw(text3);
