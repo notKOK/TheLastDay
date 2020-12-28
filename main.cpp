@@ -17,11 +17,11 @@ int main()
 	Font font;
 	font.loadFromFile("./19925.ttf");
 	Text text1("", font, 20);
-	text1.setString("Bring me he knifes:");
+	text1.setString("Bring me the knives:");
 	text1.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	text1.setPosition(100, 570);
 	Text text2("", font, 20);
-	text2.setString("Feed the horses:");
+	text2.setString("Feed the hourses:");
 	text2.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	text2.setPosition(480, 570);
 	Text text3("", font, 20);
@@ -37,7 +37,10 @@ int main()
 	texture horseshouse(path + "horseshouse.png", 0, 0, 274, 364, 1600, 0, 320, 425);
 	texture bighouse(path + "bighouse.png", 0, 0, 342, 274, 1100, 10, 399, 320);
 	texture smoke(path +"smoke.png", 0, 0, 80, 104, 169, 40, 50, 84);
-
+	texture knife(path + "knife.png", 0, 0, 252, 610, -1000, -1000, 30, 40);
+    texture document(path + "document.png", 0, 0, 107, 88, -1000, -1000, 22, 18);
+    texture hay(path + "hay.png", 0, 0, 80, 55, -1000, -1000, 30, 25);
+    texture hayloft1(path + "hayloft1.png", 0, 0, 96, 81, 1590, 275, 96, 81);
 
     const int WIDTH_MAP = 54;
     const int HEIGHT_MAP = 96;
@@ -48,7 +51,6 @@ int main()
     for(int i = 0;getline(file,temp); ++i){
         TileMap[i] = temp;
     }
-
 
 	int counterX = 0;
 	int counterY = 0;
@@ -111,6 +113,7 @@ int main()
 			++counter1;
 			text1.setString("Bring me he knifes:" + to_string(counter1));
 			a1 = 0;
+            knife.sprite.setPosition(-1000,-1000);
 		}
 		if(hero.x < 1880 && hero.x > 1600 && hero.y > 240 && hero.y < 380)
 		{
@@ -122,6 +125,7 @@ int main()
 			++counter2;
 			text2.setString("Feed the hourses:" + to_string(counter2));
 			a2 = 0;
+            hay.sprite.setPosition(-1000,-1000);
 		}
 		if(hero.x < 1440 && hero.x > 1140 && hero.y == 260)
 		{
@@ -133,6 +137,7 @@ int main()
 			++counter3;
 			text3.setString("Deliver the documents:" + to_string(counter3));
 			a3 = 0;
+            document.sprite.setPosition(-1000,-1000);
 		}
 		window.clear();
 		window.draw(grass.sprite);
@@ -158,11 +163,20 @@ int main()
 			smoke.sprite.setTextureRect(IntRect(422, 0, 110, 104));
 			clock.restart();
 		}
+        if(a1) knife.sprite.setPosition(hero.x,hero.y - 50);
+        if(a2) hay.sprite.setPosition(hero.x + 22, hero.y - 10);
+        if(a3) document.sprite.setPosition(hero.x - 10, hero.y + 7);
+
 		window.draw(horseshouse.sprite); 
 		window.draw(blacksmith.sprite); 
 		window.draw(smoke.sprite);
 		window.draw(bighouse.sprite);
+		window.draw(hayloft1.sprite);
 		window.draw(hero.sprite);
+        window.draw(knife.sprite);
+        window.draw(hay.sprite);
+        window.draw(document.sprite);
+
 
 		for(size_t i = 0; i < 3; ++i)
 		{
